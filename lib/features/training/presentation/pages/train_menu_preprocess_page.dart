@@ -224,7 +224,7 @@ class _TrainPreprocessingPageState extends State<TrainPreprocessingPage> {
               title: 'Face Cropping',
               deskripsi:
                   'Facial landmark merupakan proses pemberian landmark pada area-area yang merepresentasikan bagian-bagian wajah',
-              image: 'Assets/Images/facial_landmark.png',
+              image: 'assets/Images/facial_landmark.png',
               tahap: 'facial_landmark',
             ),
             SizedBox(width: 10.w),
@@ -232,7 +232,7 @@ class _TrainPreprocessingPageState extends State<TrainPreprocessingPage> {
               title: 'Facial Landmark',
               deskripsi:
                   'Facial landmark merupakan proses pemberian landmark pada area-area yang merepresentasikan bagian-bagian wajah',
-              image: 'Assets/Images/facial_landmark.png',
+              image: 'assets/Images/facial_landmark.png',
               tahap: 'facial_landmark',
             ),
             SizedBox(width: 10.w),
@@ -240,7 +240,7 @@ class _TrainPreprocessingPageState extends State<TrainPreprocessingPage> {
               title: 'Landmark Extraction',
               deskripsi:
                   'Landmark extraction merupakan proses ekstraksi landmark pada wajah sehingga hanya gambar nantinya hanya berupa landmarknya saja',
-              image: 'Assets/Images/landmark_extraction.png',
+              image: 'assets/Images/landmark_extraction.png',
               tahap: 'landmark_extraction',
             ),
           ],

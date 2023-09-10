@@ -11,7 +11,11 @@ abstract class TrainState extends Equatable {
 
 class UploadDatasetStateInitial extends TrainState {}
 
-class UploadDatasetStateLoading extends TrainState {}
+class UploadDatasetStateLoading extends TrainState {
+  final Stream<double> uploadProgress;
+
+  UploadDatasetStateLoading(this.uploadProgress);
+}
 
 class UploadDatasetStateFailure extends TrainState {}
 

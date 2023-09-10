@@ -15,4 +15,10 @@ class UploadDatasetUseCase
       UploadDatasetFilepathReq params) {
     return uploadDatasetRepository.upload(params);
   }
+
+  Stream<double> listenToUploadProgress() {
+  // Menggunakan Completer untuk membuat Future yang akan diisi dengan progressPercent
+  // Mengembalikan Future yang akan diisi dengan progressPercent
+  return uploadDatasetRepository.listenToUploadProgress();
+}
 }

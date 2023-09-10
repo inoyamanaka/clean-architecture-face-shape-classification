@@ -23,7 +23,10 @@ class TrainBloc extends Bloc<TrainEvent, TrainState> {
       : super(UploadDatasetStateInitial()) {
     // Upload dataset bloc
     on<UploadDatasetEvent>((event, emit) async {
-      emit(UploadDatasetStateLoading());
+      var apa = await uploadDatasetUseCase.listenToUploadProgress();
+
+      emit(UploadDatasetStateLoading(apa));
+
       final failureOrSuccess = await uploadDatasetUseCase.call(event.filepath);
       failureOrSuccess.fold(
         (error) => emit(UploadDatasetStateFailure()),

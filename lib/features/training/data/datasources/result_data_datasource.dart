@@ -18,10 +18,6 @@ class TrainPreprocessDataSourceImpl implements TrainPreprocessDataSource {
   @override
   Future<TrainPreprocessEntity> getImagePreprocess() async {
     try {
-      // await _client.get(
-      //   ApiUrl.Url_preprocessing,
-      //   options: Options(headers: {}),
-      // );
       final result = await _client.get(
         ApiPath.imageRandom,
         options: Options(headers: {}),

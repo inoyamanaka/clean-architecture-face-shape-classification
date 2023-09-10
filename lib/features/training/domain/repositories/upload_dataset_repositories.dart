@@ -6,4 +6,5 @@ import 'package:face_shape/features/training/domain/entities/train_entitiy.dart'
 abstract class UploadDatasetRepository {
   Future<Either<Failure, UploadDatasetEntity>> upload(
       UploadDatasetFilepathReq filepath);
+  Stream<double> listenToUploadProgress();
 }

@@ -18,14 +18,14 @@ class TopMenuTrain extends StatelessWidget {
                 ontap;
               },
               child: Image.asset(
-                "Assets/Icons/back.png",
+                "assets/Icons/back.png",
                 width: 35,
                 height: 35,
               ),
             ),
           ),
           SvgPicture.asset(
-            "Assets/Svgs/hiasan_atas.svg",
+            "assets/Svgs/hiasan_atas.svg",
           ),
         ],
       ),

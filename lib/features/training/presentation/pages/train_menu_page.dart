@@ -2,10 +2,10 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:face_shape/config/config.dart';
 import 'package:face_shape/core/di/injection.dart';
 import 'package:face_shape/core/router/routes.dart';
+import 'package:face_shape/features/classification/presentation/widgets/loading.dart';
 import 'package:face_shape/features/training/data/models/request/train_request.dart';
 import 'package:face_shape/features/training/presentation/bloc/training_bloc.dart';
 import 'package:face_shape/features/training/presentation/widgets/dialogue.dart';
-import 'package:face_shape/features/training/presentation/widgets/loading_train.dart';
 import 'package:face_shape/features/training/presentation/widgets/subtitle_train.dart';
 import 'package:face_shape/features/training/presentation/widgets/title_train.dart';
 import 'package:face_shape/features/training/presentation/widgets/top_decoration_train.dart';
@@ -32,7 +32,6 @@ class _TrainMenuPage extends State<TrainMenuPage>
   late PlatformFile platformFile;
 
   final uploadBloc = sl<TrainBloc>();
-  // ValueNotifier<double> loadingControllerP = ValueNotifier<double>(0.0);
 
   @override
   void initState() {
@@ -56,8 +55,7 @@ class _TrainMenuPage extends State<TrainMenuPage>
     final Size size = MediaQuery.of(context).size;
     final double width = size.width; // lebar layar
     final double height = size.height; // tinggi layar
-
-    // loadingController = ValueNotifier(progressPercent);
+    double progressUplaod = 0;
 
     return Scaffold(
       body: WillPopScope(
@@ -65,7 +63,6 @@ class _TrainMenuPage extends State<TrainMenuPage>
           Get.toNamed(Routes.menu);
           return false;
         },
-        // width: width,
         child: ScreenUtilInit(
           builder: (context, child) => BlocProvider<TrainBloc>(
             create: (context) => uploadBloc,
@@ -75,15 +72,26 @@ class _TrainMenuPage extends State<TrainMenuPage>
                 successDialogue(context);
               }
             }, builder: (context, state) {
-              if (state is UploadDatasetStateInitial) {
-                // uploading();
-              }
               if (state is UploadDatasetStateLoading) {
-                return const LoadingOverlayTrain(
-                  text: "Mohon Tunggu Upload...",
+                return StreamBuilder<double>(
+                  stream: state.uploadProgress,
+                  builder:
+                      (BuildContext context, AsyncSnapshot<double> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.active) {
+                      double progressPercent = snapshot.data ?? 0.0;
+                      int progressPercentInt = progressPercent.toInt();
+                      return LoadingOverlay(
+                        text: 'Loading ${progressPercentInt}%',
+                        isLoading: true,
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      return Container();
+                    }
+                  },
                 );
               }
-
               return Stack(children: [
                 Column(
                   children: [
@@ -164,7 +172,7 @@ class _TrainMenuPage extends State<TrainMenuPage>
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Image.asset(
-            "Assets/Images/folder_panduan.png",
+            "assets/Images/folder_panduan.png",
             fit: BoxFit.fill,
           ),
         ),
@@ -232,7 +240,7 @@ class _TrainMenuPage extends State<TrainMenuPage>
         onTap: () async {
           FilePickerResult? result = await FilePicker.platform.pickFiles();
           String? path = result!.files.first.path;
-          // isSucces = await uploadDataset.call(path!, loadingControllerP);
+          print(path);
           uploadBloc.add(UploadDatasetEvent(
               filepath: UploadDatasetFilepathReq(filepath: path!)));
         },
@@ -268,106 +276,4 @@ class _TrainMenuPage extends State<TrainMenuPage>
               ),
             )));
   }
-
-  void uploadFile(String name, int i) {}
 }
-
-// class Test extends StatefulWidget {
-//   const Test({
-//     super.key,
-//     required PlatformFile? platformFile,
-//     required this.uploadDataSource,
-//   }) : _platformFile = platformFile;
-
-//   final PlatformFile? _platformFile;
-//   final UploadDatasetDataSourceImpl uploadDataSource;
-
-//   @override
-//   State<Test> createState() => _TestState();
-// }
-
-// class _TestState extends State<Test> {
-//   @override
-//   Widget build(BuildContext context) {
-//     final progressNotifier = Provider.of<ProgressNotifier>(context);
-//     setState(() {
-//       print('ini');
-//       print(progressNotifier.value);
-//     });
-
-//     return Container(
-//         padding: const EdgeInsets.all(20),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Text(
-//               'Selected File',
-//               style: TextStyle(
-//                 color: Colors.grey.shade400,
-//                 fontSize: 15.sp,
-//               ),
-//             ),
-//             SizedBox(
-//               height: 10.h,
-//             ),
-//             Container(
-//                 padding: const EdgeInsets.all(8),
-//                 decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(10),
-//                     color: Colors.white,
-//                     boxShadow: [
-//                       BoxShadow(
-//                         color: Colors.grey.shade200,
-//                         offset: const Offset(0, 1),
-//                         blurRadius: 3,
-//                         spreadRadius: 2,
-//                       )
-//                     ]),
-//                 child: Row(
-//                   children: [
-//                     ClipRRect(
-//                         borderRadius: BorderRadius.circular(8),
-//                         child: Image.asset(
-//                           "Assets/Images/zip-file.png",
-//                           width: 35.w,
-//                           height: 35.h,
-//                         )),
-//                     SizedBox(
-//                       width: 10.h,
-//                     ),
-//                     Expanded(
-//                       child: Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           Text(
-//                             widget._platformFile!.name,
-//                             style:
-//                                 TextStyle(fontSize: 13.sp, color: Colors.black),
-//                           ),
-//                           SizedBox(height: 5.h),
-//                           // Text(
-//                           //   '${(_platformFile!.size / 1024).ceil()} KB',
-//                           //   style: TextStyle(
-//                           //       fontSize: 13.sp,
-//                           //       color: Colors.grey.shade500),
-//                           // ),
-//                           SizedBox(height: 5.h),
-//                           Container(
-//                               height: 5.h,
-//                               clipBehavior: Clip.hardEdge,
-//                               decoration: BoxDecoration(
-//                                 borderRadius: BorderRadius.circular(5),
-//                                 color: Colors.blue.shade50,
-//                               ),
-//                               child: LinearProgressIndicator(
-//                                   // value: value,
-//                                   )),
-//                         ],
-//                       ),
-//                     ),
-//                   ],
-//                 )),
-//           ],
-//         ));
-//   }
-// }

@@ -189,7 +189,7 @@ class _TrainResultPageState extends State<TrainResultPage> {
           );
         },
         text: "main menu",
-        imageAsset: "Assets/Icons/main-menu.png",
+        imageAsset: "assets/Icons/main-menu.png",
         width: 50,
         height: 40,
       ),
@@ -220,7 +220,7 @@ class _TrainResultPageState extends State<TrainResultPage> {
                 width: 25,
               ),
               Image.asset(
-                "Assets/Icons/save.png",
+                "assets/Icons/save.png",
                 width: 30,
                 height: 30,
               ),

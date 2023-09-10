@@ -4,7 +4,7 @@ import 'package:face_shape/core/env/env_config.dart';
 /// see details about [flutter flavor]
 
 class FlavorSettings {
-  static const url = "https://9d1a-116-254-119-97.ngrok-free.app";
+  static const url = "https://fcc6-103-247-120-109.ngrok-free.app";
 
   FlavorSettings.development() {
     EnvConfig.getInstance(
