@@ -1,8 +1,9 @@
 import 'package:face_shape/config/config.dart';
 import 'package:face_shape/core/models/main_menu_att.dart';
 import 'package:face_shape/core/router/routes.dart';
-import 'package:face_shape/features/classification/presentation/widgets/bottom_decoration.dart';
-import 'package:face_shape/features/classification/presentation/widgets/image_slider_guide.dart';
+import 'package:face_shape/features/classification/presentation/widgets/decoration_menu.dart';
+import 'package:face_shape/features/classification/presentation/widgets/decoration_result.dart';
+import 'package:face_shape/features/classification/presentation/guide_page/widgets/guide.dart';
 import 'package:face_shape/features/classification/presentation/widgets/subtitle_page.dart';
 import 'package:face_shape/features/classification/presentation/widgets/title_page.dart';
 import 'package:face_shape/features/classification/presentation/widgets/top_decoration.dart';
@@ -45,7 +46,7 @@ class _PanduanScreenState extends State<PanduanScreen> {
             const SizedBox(height: 10),
             imageCaption().animate().slideY(begin: 1, end: 0),
             const Spacer(),
-            const BottomDecoration(),
+            DecorationMenu(posisi: 'bawah'),
           ]),
         ),
       ),

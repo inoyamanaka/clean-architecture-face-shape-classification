@@ -20,6 +20,7 @@ class UploadImageRepositoryImpl extends UploadImageRepository {
 
       return Right(remoteGetImage);
     } on DioException catch (e) {
+      print("ini yang terjadi4");
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
       if (e.response != null) {
@@ -35,7 +36,7 @@ class UploadImageRepositoryImpl extends UploadImageRepository {
         return Left(ServerFailure(e.message!));
       }
     } catch (e) {
-      // print("ini yang terjadi");
+      print("ini yang terjadi");
       return Left(ServerFailure(e.toString()));
     }
   }

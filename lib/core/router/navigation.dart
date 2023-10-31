@@ -1,11 +1,11 @@
 // ignore_for_file: strict_raw_type
 
 import 'package:face_shape/core/router/routes.dart';
-import 'package:face_shape/features/classification/presentation/pages/main_menu_page.dart';
-import 'package:face_shape/features/classification/presentation/pages/user_menu_camera.dart';
-import 'package:face_shape/features/classification/presentation/pages/user_menu_guide.dart';
-import 'package:face_shape/features/classification/presentation/pages/user_menu_page.dart';
-import 'package:face_shape/features/classification/presentation/pages/user_menu_result.dart';
+import 'package:face_shape/features/classification/presentation/main_page/pages/main_menu_page.dart';
+import 'package:face_shape/features/classification/presentation/camera_page/pages/user_menu_camera.dart';
+import 'package:face_shape/features/classification/presentation/guide_page/pages/user_menu_guide.dart';
+import 'package:face_shape/features/classification/presentation/media_page/pages/user_menu_page.dart';
+import 'package:face_shape/features/classification/presentation/result_page/pages/user_menu_result.dart';
 import 'package:face_shape/features/training/presentation/pages/train_menu_page.dart';
 import 'package:face_shape/features/training/presentation/pages/train_menu_preprocess_page.dart';
 import 'package:face_shape/features/training/presentation/pages/train_menu_result.dart';

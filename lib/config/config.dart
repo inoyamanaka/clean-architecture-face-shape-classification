@@ -2,18 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyColors {
-  final Color primary = const Color.fromARGB(255, 19, 21, 34);
-  final Color secondary = const Color.fromARGB(255, 80, 101, 252);
+  static Color primary = const Color(0xff171C3C);
+  static Color secondary = const Color(0xffD9D9D9);
   final Color third = const Color.fromARGB(255, 217, 217, 217);
   final Color fourth = const Color.fromARGB(255, 212, 245, 252);
+  static Color fifth = const Color(0xff131522);
+
+  
 }
 
 class MyFonts {
-  final TextStyle primary = TextStyle(
-      color: Colors.black,
-      fontSize: 16.sp,
-      fontFamily: 'Urbanist',
-      fontWeight: FontWeight.w500);
+  static TextStyle primary = TextStyle(
+    color: MyColors.primary,
+    fontSize: 16.sp,
+    fontFamily: 'Urbanist',
+    fontWeight: FontWeight.bold,
+    letterSpacing: 0.20,
+  );
 
   final TextStyle primary300 = TextStyle(
       fontSize: 16.sp, fontFamily: 'Urbanist', fontWeight: FontWeight.w300);

@@ -4,9 +4,9 @@ import 'package:face_shape/core/di/injection.dart';
 import 'package:face_shape/core/router/routes.dart';
 import 'package:face_shape/features/classification/data/models/request/upload_image_model.dart';
 import 'package:face_shape/features/classification/presentation/bloc/classification_bloc.dart';
-import 'package:face_shape/features/classification/presentation/widgets/bottom_decoration.dart';
 import 'package:face_shape/features/classification/presentation/widgets/custom_button.dart';
-import 'package:face_shape/features/classification/presentation/widgets/custom_media.dart';
+import 'package:face_shape/features/classification/presentation/media_page/widgets/custom_media.dart';
+import 'package:face_shape/features/classification/presentation/widgets/decoration_menu.dart';
 import 'package:face_shape/features/classification/presentation/widgets/dialogue.dart';
 import 'package:face_shape/features/classification/presentation/widgets/loading.dart';
 import 'package:face_shape/features/classification/presentation/widgets/subtitle_page.dart';
@@ -109,7 +109,7 @@ class _UserMenuPageState extends State<UserMenuPage> {
                       SizedBox(height: 35.h),
                       panduanButton(context).animate().slideY(begin: 1, end: 0),
                       const Spacer(),
-                      const BottomDecoration(),
+                      DecorationMenu(posisi: 'bawah'),
                     ]),
                   ),
                 ]);

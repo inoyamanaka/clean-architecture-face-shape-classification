@@ -22,7 +22,7 @@ class TrainNextButton extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: MyColors().primary,
+          color: MyColors.primary,
           border: Border.all(
             color: Colors.black,
             width: 2.0,

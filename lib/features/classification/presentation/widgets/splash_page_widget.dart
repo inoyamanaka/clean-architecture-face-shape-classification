@@ -1,5 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:face_shape/features/classification/presentation/pages/main_menu_page.dart';
+import 'package:face_shape/features/classification/presentation/main_page/pages/main_menu_page.dart';
 import 'package:flutter/material.dart';
 
 class SplashWidget extends StatelessWidget {

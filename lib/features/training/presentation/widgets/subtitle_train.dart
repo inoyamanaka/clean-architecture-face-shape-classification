@@ -16,7 +16,7 @@ class SubTitle extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-            color: MyColors().primary,
+            color: MyColors.primary,
             fontSize: 16.sp,
             fontFamily: 'Urbanist',
             fontWeight: FontWeight.w700),

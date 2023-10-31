@@ -15,16 +15,21 @@ class ClassificationBlocUpload
       : super(UploadClassificationInitial()) {
     on<UploadEvent>((event, emit) async {
       emit(UploadClassificationLoading());
+      print('setidaknya disini');
+      try {
+        final result = await uploadImageUsecase.call(event.filepath);
+        result.fold((l) {
+          print('woii');
+          print(l.message);
 
-      final result = await uploadImageUsecase.call(event.filepath);
-
-      result.fold((l) {
-        emit(UploadClassificationFailure(l.message));
-        // print(l.message);
-      }, (r) {
-        // print(r);
-        emit(UploadClassificationSuccess(r));
-      });
+          emit(UploadClassificationFailure(l.message));
+        }, (r) {
+          // print(r);
+          emit(UploadClassificationSuccess(r));
+        });
+      } catch (e) {
+        emit(UploadClassificationFailure('Ada error'));
+      }
     });
   }
   UploadImageUsecase uploadImageUsecase;
@@ -37,13 +42,18 @@ class ClassificationBlocGet
       : super(GetClassificationInitial()) {
     on<GetEvent>((event, emit) async {
       emit(GetClassificationLoading());
-      final result = await getImageUsecase.call(NoParams());
+      try{
+         final result = await getImageUsecase.call(NoParams());
       result.fold((l) {
-        // print(l);
+        print('ini error : $l');
         emit(GetClassificationFailure(l.message));
       }, (r) {
         emit(GetClassificationSuccess(r));
       });
+      }catch(e){
+        emit(GetClassificationFailure('Server error'));
+      }
+     
     });
   }
 }

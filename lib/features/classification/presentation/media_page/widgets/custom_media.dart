@@ -46,7 +46,7 @@ class CostumMedia extends StatelessWidget {
                 width: 150.w,
                 height: 40.h,
                 decoration: BoxDecoration(
-                  color: MyColors().secondary,
+                  color: MyColors.primary,
                   borderRadius: BorderRadius.circular(40),
                   border: Border.all(
                     color: Colors.black,

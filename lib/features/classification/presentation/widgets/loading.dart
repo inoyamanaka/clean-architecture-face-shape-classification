@@ -38,7 +38,7 @@ class LoadingOverlay extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SpinKitSquareCircle(
-                    color: MyColors().primary,
+                    color: MyColors.primary,
                     size: 50.w,
                   ),
                   SizedBox(height: 20.h),

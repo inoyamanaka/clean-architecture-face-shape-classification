@@ -1,5 +1,6 @@
-class CiriWajah {
-  Map<String, List<String>> faceShapes = {
+class
+CiriWajah {
+ static Map<String, List<String>> faceShapes = {
     "Oval": [
       "Tulang pipi yang sangat menonjol dan lebar",
       "Wajah memiliki garis rahang yang melengkung di sekitar tepinya",

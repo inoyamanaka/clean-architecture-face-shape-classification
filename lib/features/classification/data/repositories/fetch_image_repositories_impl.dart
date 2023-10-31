@@ -18,6 +18,7 @@ class GetImageRepositoryImpl implements GetImageRepository {
 
       return Right(remoteGetImage);
     } on DioException catch (e) {
+      print('ini kan ya ?');
       print(e);
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
@@ -34,7 +35,7 @@ class GetImageRepositoryImpl implements GetImageRepository {
         return Left(ServerFailure(e.message!));
       }
     } catch (e) {
-      // print("ini yang terjadi4");
+      print("ini yang terjadi4");
 
       return Left(ServerFailure(e.toString()));
     }

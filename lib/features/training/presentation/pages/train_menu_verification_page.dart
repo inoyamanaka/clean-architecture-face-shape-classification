@@ -136,7 +136,7 @@ class _TrainVerifPageState extends State<TrainVerifPage> {
         Container(
           width: width * 0.85,
           height: 50,
-          color: MyColors().primary,
+          color: MyColors.primary,
           child: const Center(
             child: Text("Model Parameter",
                 style: TextStyle(
@@ -151,7 +151,7 @@ class _TrainVerifPageState extends State<TrainVerifPage> {
           height: height * 0.15,
           decoration: BoxDecoration(
               color: MyColors().third,
-              border: Border.all(color: MyColors().primary)),
+              border: Border.all(color: MyColors.primary)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child:
@@ -173,7 +173,7 @@ class _TrainVerifPageState extends State<TrainVerifPage> {
         Container(
           width: width * 0.85,
           height: 20,
-          color: MyColors().primary,
+          color: MyColors.primary,
         ),
       ]),
     );
@@ -185,7 +185,7 @@ class _TrainVerifPageState extends State<TrainVerifPage> {
         Container(
           width: width * 0.85,
           height: 50,
-          color: MyColors().primary,
+          color: MyColors.primary,
           child: const Center(
             child: Text("Image Preprocessing",
                 style: TextStyle(
@@ -198,14 +198,14 @@ class _TrainVerifPageState extends State<TrainVerifPage> {
         Container(
           width: width * 0.85,
           height: height * 0.15,
-          color: MyColors().secondary,
+          color: MyColors.secondary,
           child: Container(
             alignment: Alignment.topLeft,
             width: width * 0.45,
             height: height * 0.35,
             decoration: BoxDecoration(
                 color: MyColors().third,
-                border: Border.all(color: MyColors().primary)),
+                border: Border.all(color: MyColors.primary)),
             child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Column(
@@ -233,7 +233,7 @@ class _TrainVerifPageState extends State<TrainVerifPage> {
         Container(
           width: width * 0.85,
           height: 20,
-          color: MyColors().primary,
+          color: MyColors.primary,
         ),
       ]),
     );
@@ -269,7 +269,7 @@ class _TrainVerifPageState extends State<TrainVerifPage> {
         Container(
           width: width * 0.85,
           height: 50,
-          color: MyColors().primary,
+          color: MyColors.primary,
           child: const Center(
             child: Text("Testing",
                 style: TextStyle(
@@ -283,8 +283,8 @@ class _TrainVerifPageState extends State<TrainVerifPage> {
           width: width * 0.85,
           height: height * 0.37,
           decoration: BoxDecoration(
-              color: MyColors().primary,
-              border: Border.all(color: MyColors().primary)),
+              color: MyColors.primary,
+              border: Border.all(color: MyColors.primary)),
           child: Container(
             alignment: Alignment.topLeft,
             width: width * 0.45,
@@ -333,7 +333,7 @@ class _TrainVerifPageState extends State<TrainVerifPage> {
         Container(
           width: width * 0.85,
           height: 20,
-          color: MyColors().primary,
+          color: MyColors.primary,
         ),
       ],
     );
@@ -345,7 +345,7 @@ class _TrainVerifPageState extends State<TrainVerifPage> {
         Container(
           width: width * 0.85,
           height: 50,
-          color: MyColors().primary,
+          color: MyColors.primary,
           child: const Center(
             child: Text("Training",
                 style: TextStyle(
@@ -361,7 +361,7 @@ class _TrainVerifPageState extends State<TrainVerifPage> {
           height: height * 0.37,
           decoration: BoxDecoration(
               color: MyColors().third,
-              border: Border.all(color: MyColors().primary)),
+              border: Border.all(color: MyColors.primary)),
           child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -404,7 +404,7 @@ class _TrainVerifPageState extends State<TrainVerifPage> {
         Container(
           width: width * 0.85,
           height: 20,
-          color: MyColors().primary,
+          color: MyColors.primary,
         ),
       ],
     );

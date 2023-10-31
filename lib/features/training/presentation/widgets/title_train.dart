@@ -11,7 +11,7 @@ class TitlePage extends StatelessWidget {
       width: 250,
       height: 50,
       decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 19, 21, 34),
+          color: Color(0xff171C3C),
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20), bottomRight: Radius.circular(20))),
       child: Center(

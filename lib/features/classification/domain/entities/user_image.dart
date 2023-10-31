@@ -10,12 +10,23 @@ class ImageEntity extends Equatable {
 
 class DataImageEntity extends Equatable {
   final List<String> urls;
-  final String? bentukWajah;
-  final double? persen;
+  final String bentukWajah;
+  final double persen;
+  final String gender;
+  final List<String> hairStyle;
+  final List<String> hairImage;
+  final List<String> hairDescription;
 
-  const DataImageEntity(
-      {required this.urls, required this.bentukWajah, required this.persen});
+  DataImageEntity(
+      {required this.urls,
+      required this.bentukWajah,
+      required this.persen,
+      required this.gender,
+      required this.hairStyle,
+      required this.hairDescription,
+      required this.hairImage});
 
   @override
-  List<Object?> get props => [urls, bentukWajah, persen];
+  List<Object?> get props =>
+      [urls, bentukWajah, persen, hairStyle, hairImage, hairDescription];
 }

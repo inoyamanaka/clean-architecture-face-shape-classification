@@ -109,15 +109,15 @@ class _TrainPreprocessingPageState extends State<TrainPreprocessingPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("Batch Size", style: myFonts.primary),
+                  Text("Batch Size", style: MyFonts.primary),
                   SizedBox(height: 10.h),
                   batchSizeInput(),
                   SizedBox(height: 10.h),
-                  Text("Jumlah Epoch", style: myFonts.primary),
+                  Text("Jumlah Epoch", style: MyFonts.primary),
                   SizedBox(height: 10.h),
                   epochInput(tli),
                   SizedBox(height: 10.h),
-                  Text("Optimizer", style: myFonts.primary),
+                  Text("Optimizer", style: MyFonts.primary),
                   SizedBox(height: 10.h),
                   optimizerInput(myColor),
                   SizedBox(height: 20.h),
@@ -195,7 +195,7 @@ class _TrainPreprocessingPageState extends State<TrainPreprocessingPage> {
         value: _selectedOption,
         isExpanded: true,
         isDense: true,
-        focusColor: myColor.primary,
+        focusColor: MyColors.primary,
         onChanged: (newValue) {
           setState(() {
             _selectedOption = newValue!;

@@ -1,19 +1,23 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:face_shape/config/config.dart';
 import 'package:face_shape/core/di/injection.dart';
 import 'package:face_shape/core/router/routes.dart';
 import 'package:face_shape/features/classification/presentation/bloc/classification_bloc.dart';
-import 'package:face_shape/features/classification/presentation/widgets/bottom_decoration.dart';
 import 'package:face_shape/features/classification/presentation/widgets/custom_button.dart';
+import 'package:face_shape/features/classification/presentation/widgets/decoration_menu.dart';
 import 'package:face_shape/features/classification/presentation/widgets/dialogue.dart';
 import 'package:face_shape/features/classification/presentation/widgets/loading.dart';
 import 'package:face_shape/features/classification/presentation/widgets/subtitle_page.dart';
 import 'package:face_shape/features/classification/presentation/widgets/title_page.dart';
 import 'package:face_shape/features/classification/presentation/widgets/top_decoration.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -21,7 +25,7 @@ import 'package:get/get.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
-import '../../data/models/request/upload_image_model.dart';
+import '../../../data/models/request/upload_image_model.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
@@ -101,7 +105,9 @@ class _CameraScreenState extends State<CameraScreen> {
             width: size.width,
             height: size.height,
             child: Column(children: [
-              topMenu(context),
+              CustomBackButton(onTap: () {
+                Get.toNamed(Routes.userMenu);
+              }),
               SizedBox(height: 15.h),
               const TitleApp(
                 textTitle: "Deteksi muka",
@@ -116,18 +122,18 @@ class _CameraScreenState extends State<CameraScreen> {
               BlocConsumer<ClassificationBlocUpload, UploadClassificationState>(
                 bloc: uploadBloc,
                 listener: (context, state) {
-                  // print(state);
-                  if (state is UploadClassificationLoading) {
+                  print(state);
+                  if (state is UploadClassificationLoading ||
+                      state is UploadClassificationInitial) {
                     const LoadingOverlay(
                       isLoading: true,
                       text: "Menampilkan Hasil.......",
                     );
                   }
                   if (state is UploadClassificationFailure) {
-                    noFaceDetection;
+                    noFaceDetection(context);
                   }
                   if (state is UploadClassificationSuccess) {
-                    // print(state.imageEntity.message);
                     if (state.imageEntity.message ==
                         "File failed to uploaded") {
                       noFaceDetection(context);
@@ -151,7 +157,7 @@ class _CameraScreenState extends State<CameraScreen> {
               ),
               SizedBox(height: 10.h),
               const Spacer(),
-              const BottomDecoration(),
+              DecorationMenu(posisi: 'bawah'),
             ]),
           ),
         ),
@@ -159,8 +165,8 @@ class _CameraScreenState extends State<CameraScreen> {
     );
   }
 
-  SizedBox mainFeature() {
-    return SizedBox(
+  Widget mainFeature() {
+    return Container(
         width: 280.w,
         height: 320.h,
         child: Stack(
@@ -184,13 +190,24 @@ class _CameraScreenState extends State<CameraScreen> {
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(25),
                           child: AspectRatio(
-                            aspectRatio: 3.0 / 4.0,
+                            aspectRatio: 1,
                             child: CameraPreview(_controller),
                           ),
                         )
                       : Container(),
                 )),
-            faceLine(),
+            Positioned(
+              top: 15.h,
+              left: 20.w,
+              right: 20.w,
+              child: Container(
+                // color: Colors.blue,
+                child: SvgPicture.asset(
+                  "assets/Svgs/face_line.svg",
+                  height: 230.h,
+                ),
+              ),
+            ),
             Positioned(
               bottom: 5.h,
               left: 0.w,
@@ -201,19 +218,22 @@ class _CameraScreenState extends State<CameraScreen> {
                   SizedBox(width: 45.w),
                   cameraDirectionSettings(),
                   takePicture(context),
-                  flashSettings(),
+                  GestureDetector(
+                    onTap: () {
+                      _toggleFlash();
+                    },
+                    child: SvgPicture.asset(
+                      _isFlashOn
+                          ? "assets/Svgs/flash_off.svg"
+                          : "assets/Svgs/flash_on.svg",
+                    ),
+                  ),
                   SizedBox(width: 45.w),
                 ],
               ),
             ),
           ],
         ));
-  }
-
-  CustomBackButton topMenu(BuildContext context) {
-    return CustomBackButton(onTap: () {
-      Get.toNamed(Routes.userMenu);
-    });
   }
 
   GestureDetector takePicture(BuildContext context) {
@@ -228,22 +248,27 @@ class _CameraScreenState extends State<CameraScreen> {
         });
 
         XFile picture = await _controller.takePicture();
-        await picture.saveTo(filePath!);
-        takePictureDialog(context, filePath!).show();
-      },
-      child: SvgPicture.asset("Assets/Svgs/camera_take.svg"),
-    );
-  }
+        Uint8List? imageBytes = File(picture.path).readAsBytesSync();
 
-  GestureDetector flashSettings() {
-    return GestureDetector(
-      onTap: () {
-        // fungsi ketika gambar ditekan
-        _toggleFlash();
+// Tentukan tingkat kompresi yang diinginkan (1 - 100)
+        int quality = 50; // Sesuaikan sesuai dengan preferensi Anda
+
+// Kompresi gambar dengan tingkat kompresi yang diinginkan
+        List<int> compressedImage = await FlutterImageCompress.compressWithList(
+          imageBytes,
+          minHeight: 800, // Sesuaikan sesuai kebutuhan
+          minWidth: 600, // Sesuaikan sesuai kebutuhan
+          quality: quality,
+        );
+
+// Simpan gambar yang sudah dikompresi ke file
+        File compressedFile = File(filePath!);
+        await compressedFile.writeAsBytes(compressedImage);
+
+// Tampilkan dialog atau lakukan operasi lain dengan gambar yang sudah dikompresi
+        takePictureDialog(context, compressedFile.path).show();
       },
-      child: SvgPicture.asset(
-        _isFlashOn ? "Assets/Svgs/flash_off.svg" : "Assets/Svgs/flash_on.svg",
-      ),
+      child: SvgPicture.asset("assets/Svgs/camera_take.svg"),
     );
   }
 
@@ -260,22 +285,7 @@ class _CameraScreenState extends State<CameraScreen> {
         }
       },
       child: SvgPicture.asset(
-        "Assets/Svgs/camera_reverse.svg",
-      ),
-    );
-  }
-
-  Positioned faceLine() {
-    return Positioned(
-      top: 15.h,
-      left: 20.w,
-      right: 20.w,
-      child: SizedBox(
-        width: 280.w,
-        child: SvgPicture.asset(
-          "Assets/Svgs/face_line.svg",
-          height: 230.h,
-        ),
+        "assets/Svgs/camera_reverse.svg",
       ),
     );
   }

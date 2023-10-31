@@ -2,7 +2,7 @@
 
 import 'package:face_shape/core/di/injection.dart';
 import 'package:face_shape/core/router/routes.dart';
-import 'package:face_shape/features/classification/presentation/pages/main_menu_page.dart';
+import 'package:face_shape/features/classification/presentation/main_page/pages/main_menu_page.dart';
 import 'package:face_shape/features/classification/presentation/widgets/custom_button.dart';
 import 'package:face_shape/features/classification/presentation/widgets/loading.dart';
 import 'package:face_shape/features/classification/presentation/widgets/top_decoration.dart';

@@ -6,12 +6,11 @@ import 'package:face_shape/features/classification/domain/entities/user_image.da
 import 'package:face_shape/features/classification/domain/repositories/upload_image_repositories.dart';
 
 class UploadImageUsecase extends UseCase<ImageEntity, UploadImageModel> {
-  final UploadImageRepository _repository;
-
-  UploadImageUsecase(this._repository);
+  final UploadImageRepository repository;
+  UploadImageUsecase(this.repository);
 
   @override
   Future<Either<Failure, ImageEntity>> call(UploadImageModel params) {
-    return _repository.uploadImage(params);
+    return repository.uploadImage(params);
   }
 }
