@@ -19,6 +19,7 @@ class ReqClassificationRemoteDataSourceImpl
 
   @override
   Future<ImageEntity> uploadImage(UploadImageModel filePath) async {
+    print('cekk');
     try {
       print(filePath.message);
       final file = File(filePath.message);
@@ -34,11 +35,19 @@ class ReqClassificationRemoteDataSourceImpl
         data: formData,
       );
 
-      
+      print(ApiPath.upload);
 
       return UploadImageModel.fromJson(
           response.data!); // Placeholder return value, modify as needed
+    } on DioException catch (e) {
+      print(e);
+      throw DioException(
+        requestOptions: e.requestOptions,
+        error: e.error,
+        response: e.response,
+      );
     } catch (error) {
+      print(error);
       // Handle errors here
       rethrow;
     }

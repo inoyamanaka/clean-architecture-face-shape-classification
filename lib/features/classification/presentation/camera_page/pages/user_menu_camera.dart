@@ -123,8 +123,8 @@ class _CameraScreenState extends State<CameraScreen> {
                 bloc: uploadBloc,
                 listener: (context, state) {
                   print(state);
-                  if (state is UploadClassificationLoading ||
-                      state is UploadClassificationInitial) {
+                  if (state is UploadClassificationLoading) {
+        
                     const LoadingOverlay(
                       isLoading: true,
                       text: "Menampilkan Hasil.......",

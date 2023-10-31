@@ -18,6 +18,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
+import 'package:show_up_animation/show_up_animation.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -81,7 +82,7 @@ class _ReportScreenState extends State<ReportScreen> {
                       child: ValueListenableBuilder(
                         valueListenable: dynamicHeight,
                         builder: (context, value, child) => Container(
-                          height: height + dynamicHeight.value,
+                          height: height + value,
                           width: size.width,
                           child: Column(
                             children: [
@@ -128,8 +129,10 @@ class _ReportScreenState extends State<ReportScreen> {
                                       views: [
                                         resultTab(state),
                                         detailTab(state),
-                                        HairStyleRecommendation(
-                                          dataImage: state.dataImageEntity,
+                                        ShowUpAnimation(
+                                          child: HairStyleRecommendation(
+                                            dataImage: state.dataImageEntity,
+                                          ),
                                         ),
                                       ],
                                     ),
