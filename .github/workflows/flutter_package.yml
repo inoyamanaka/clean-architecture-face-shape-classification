@@ -54,7 +54,7 @@ jobs:
     # Create Release
     - uses: ncipollo/release-action@v1.10.0
       with:
-        artifacts: "build/app/outputs/flutter-apk/*.apk, build/app/outputs/bundle/release/*.aab, build/app/outputs/flutter-ipa/*.ipa,"
+        artifacts: "build/app/outputs/flutter-apk/*.apk, build/app/outputs/bundle/release/*.aab"
         commit: master
         tag: "on_deploy"
         allowUpdates: true
@@ -65,5 +65,4 @@ jobs:
         name: release-apk
         path: |
             build/app/outputs/flutter-apk/
-            build/app/outputs/flutter-ipa/
             build/app/outputs/bundle/release/
