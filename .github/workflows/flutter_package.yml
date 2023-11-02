@@ -51,7 +51,7 @@ jobs:
     - run: flutter build appbundle --flavor development --release --target=lib/main_development.dart
 
     # Create Release
-    - uses: ncipollo/release-action@v1.10.0
+    - uses: ncipollo/release-action@v1.13.0
       with:
         artifacts: "build/app/outputs/flutter-apk/*.apk, build/app/outputs/bundle/developmentRelease/*.aab"
         commit: master
