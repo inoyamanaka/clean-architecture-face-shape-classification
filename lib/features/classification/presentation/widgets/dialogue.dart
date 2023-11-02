@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:face_shape/features/classification/data/models/request/upload_image_model.dart';
+import 'package:face_shape/features/classification/presentation/bloc/classification_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NoFaceDialog extends StatefulWidget {
@@ -36,7 +39,7 @@ AwesomeDialog noFaceDetection(BuildContext context) {
   )..show();
 }
 
-AwesomeDialog takePictureDialog(BuildContext context, String filePath) {
+AwesomeDialog takePictureDialog(BuildContext context, String filePath, Bloc bloc) {
   return AwesomeDialog(
     context: context,
     title: "Gambar tersimpan",
@@ -44,7 +47,10 @@ AwesomeDialog takePictureDialog(BuildContext context, String filePath) {
         "Gambar sudah tersimpan silahkan klik tombol deteksi untuk melakukan proses deteksi",
     dialogType: DialogType.success,
     animType: AnimType.bottomSlide,
-    btnOkOnPress: () {},
+    btnOkOnPress: () {
+       bloc.add(UploadEvent(
+                          filepath: UploadImageModel(message: filePath)));
+    },
     body: Column(
       children: [
         Image.file(

@@ -25,8 +25,6 @@ import 'package:get/get.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
-import '../../../data/models/request/upload_image_model.dart';
-
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
 
@@ -42,7 +40,32 @@ class _CameraScreenState extends State<CameraScreen> {
   bool _isFlashOn = false;
   bool isLoading = false;
   late CameraController controller;
-  String? filePath;
+
+  ValueNotifier<String> filepath = ValueNotifier<String>('');
+  // String? filePath;
+
+  Future<void> detectImage(Bloc bloc) async {
+    final directory = await getExternalStorageDirectory();
+
+    filepath.value = path.join(
+      directory!.path,
+      '${DateTime.now()}.png',
+    );
+
+    XFile picture = await _controller.takePicture();
+    Uint8List? imageBytes = File(picture.path).readAsBytesSync();
+    int quality = 50;
+
+    List<int> compressedImage = await FlutterImageCompress.compressWithList(
+      imageBytes,
+      minHeight: 800,
+      minWidth: 600,
+      quality: quality,
+    );
+    File compressedFile = File(filepath.value);
+    await compressedFile.writeAsBytes(compressedImage);
+    takePictureDialog(context, compressedFile.path, bloc).show();
+  }
 
   void _toggleCameraDirection() async {
     final lensDirection =
@@ -68,11 +91,9 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   void _toggleFlash() {
-    // Ubah nilai _isFlashOn menjadi true atau false
     setState(() {
       _isFlashOn = !_isFlashOn;
     });
-    // Ubah flash mode sesuai dengan nilai _isFlashOn
     if (_isFlashOn) {
       _controller.setFlashMode(FlashMode.torch);
     } else {
@@ -124,7 +145,6 @@ class _CameraScreenState extends State<CameraScreen> {
                 listener: (context, state) {
                   print(state);
                   if (state is UploadClassificationLoading) {
-        
                     const LoadingOverlay(
                       isLoading: true,
                       text: "Menampilkan Hasil.......",
@@ -144,9 +164,8 @@ class _CameraScreenState extends State<CameraScreen> {
                 },
                 builder: (context, state) {
                   return CustomButton(
-                    onTap: () {
-                      uploadBloc.add(UploadEvent(
-                          filepath: UploadImageModel(message: filePath!)));
+                    onTap: () async {
+                      await detectImage(uploadBloc);
                     },
                     text: "Deteksi",
                     imageAsset: "Assets/Icons/face-recognition.png",
@@ -213,11 +232,11 @@ class _CameraScreenState extends State<CameraScreen> {
               left: 0.w,
               right: 0.w,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(width: 45.w),
                   cameraDirectionSettings(),
-                  takePicture(context),
+                  SizedBox(width: 15.w),
                   GestureDetector(
                     onTap: () {
                       _toggleFlash();
@@ -236,41 +255,34 @@ class _CameraScreenState extends State<CameraScreen> {
         ));
   }
 
-  GestureDetector takePicture(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        final directory = await getExternalStorageDirectory();
-        setState(() {
-          filePath = path.join(
-            directory!.path,
-            '${DateTime.now()}.png',
-          );
-        });
+  // GestureDetector takePicture(BuildContext context) {
+  //   return GestureDetector(
+  //     onTap: () async {
+  //       final directory = await getExternalStorageDirectory();
+  //       setState(() {
+  //         filePath = path.join(
+  //           directory!.path,
+  //           '${DateTime.now()}.png',
+  //         );
+  //       });
 
-        XFile picture = await _controller.takePicture();
-        Uint8List? imageBytes = File(picture.path).readAsBytesSync();
+  //       XFile picture = await _controller.takePicture();
+  //       Uint8List? imageBytes = File(picture.path).readAsBytesSync();
+  //       int quality = 50;
 
-// Tentukan tingkat kompresi yang diinginkan (1 - 100)
-        int quality = 50; // Sesuaikan sesuai dengan preferensi Anda
-
-// Kompresi gambar dengan tingkat kompresi yang diinginkan
-        List<int> compressedImage = await FlutterImageCompress.compressWithList(
-          imageBytes,
-          minHeight: 800, // Sesuaikan sesuai kebutuhan
-          minWidth: 600, // Sesuaikan sesuai kebutuhan
-          quality: quality,
-        );
-
-// Simpan gambar yang sudah dikompresi ke file
-        File compressedFile = File(filePath!);
-        await compressedFile.writeAsBytes(compressedImage);
-
-// Tampilkan dialog atau lakukan operasi lain dengan gambar yang sudah dikompresi
-        takePictureDialog(context, compressedFile.path).show();
-      },
-      child: SvgPicture.asset("assets/Svgs/camera_take.svg"),
-    );
-  }
+  //       List<int> compressedImage = await FlutterImageCompress.compressWithList(
+  //         imageBytes,
+  //         minHeight: 800,
+  //         minWidth: 600,
+  //         quality: quality,
+  //       );
+  //       File compressedFile = File(filePath!);
+  //       await compressedFile.writeAsBytes(compressedImage);
+  //       takePictureDialog(context, compressedFile.path).show();
+  //     },
+  //     child: SvgPicture.asset("assets/Svgs/camera_take.svg"),
+  //   );
+  // }
 
   GestureDetector cameraDirectionSettings() {
     return GestureDetector(

@@ -29,6 +29,7 @@ dependencies:
   flutter_image_compress: ^2.1.0
   flutter_localizations:
     sdk: flutter
+  flutter_native_splash: ^2.3.5
   flutter_screenutil: ^5.8.4
   flutter_spinkit: ^5.1.0
   flutter_svg: ^1.1.4
@@ -63,6 +64,11 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/Images/face-recognition.png"
+
+flutter_native_splash:
+  color: "#ffffff"
+  android: true
+  ios: true
 
 flutter:
   uses-material-design: true
