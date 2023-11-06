@@ -20,7 +20,7 @@ dependencies:
   dotted_border: ^2.0.0+3
   dropdown_search: ^5.0.6
   equatable: ^2.0.5
-  file_picker: ^5.2.6
+  file_picker: ^6.1.1
   flutter:
     sdk: flutter
   flutter_animate: ^4.2.0+1
